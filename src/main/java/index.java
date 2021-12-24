@@ -53,9 +53,16 @@ public class index {
                 cmd.updateAfk(user, server);
 
             }
+
+            String botID = "<@!920600262597566464>";
+            if(event.getMessageContent().contains(botID)) {
+            event.getChannel().sendMessage("No Way it worked");
+
+            /*
             if (event.getMessageContent().contains("<@!920600262597566464>")) {
                 cmd.getPrefix(event);
             }
+            */
 
         });
     }
