@@ -14,6 +14,8 @@ public class index {
         Properties properties = utils.getConfig();
 
         commands cmd = new commands();
+        afkcmds afk = new afkcmds();
+        muteandban mod = new muteandban();
 
         // Log the bot in
         DiscordApi api = new DiscordApiBuilder().setToken(properties.getProperty("TOKEN")).login().join();
@@ -27,14 +29,14 @@ public class index {
             String prefix = utils.getConfig().getProperty("PREFIX");
             User user = event.getMessage().getUserAuthor().orElseThrow();
             Server server = event.getServer().orElseThrow();
-            boolean isUserAfk = cmd.isAfk(user);
+            boolean isUserAfk = afk.isAfk(user);
             String botID = "<@!920600262597566464>";
 
             try {
                 User mentionedUser = event.getMessage().getMentionedUsers().get(0);
-                if (cmd.isAfk(mentionedUser)) {
+                if (afk.isAfk(mentionedUser)) {
                     if (!api.getYourself().getIdAsString().equals(event.getMessage().getAuthor().getIdAsString())) {
-                        event.getChannel().sendMessage(String.format("Sar's afk 'cause: %s", cmd.getAfkMessage(mentionedUser)));
+                        event.getChannel().sendMessage(String.format("Sar's afk 'cause: %s", afk.getAfkMessage(mentionedUser)));
                     }
                 }
             } catch (IndexOutOfBoundsException ignored) {
@@ -45,19 +47,21 @@ public class index {
 
                 switch (command) {
                     case "changeprefix" -> cmd.changePrefix(event, bot);
-                    case "afk" -> cmd.setAfk(event);
+                    case "afk" -> afk.setAfk(event);
+                    case "mute" -> mod.mute(event);
+                    case "unmute" -> mod.unmute(event);
                 }
 
             }
 
             if (isUserAfk) {
                 event.getMessage().reply("How does it feel, tired? :yawning_face:");
-                cmd.updateAfk(user, server);
+                afk.updateAfk(user, server);
 
             }
 
             if (event.getMessageContent().contains(botID)) {
-                cmd.getPrefix(event);
+                afk.getPrefix(event);
             }
 
         });
