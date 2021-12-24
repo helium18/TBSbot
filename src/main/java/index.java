@@ -28,6 +28,7 @@ public class index {
             User user = event.getMessage().getUserAuthor().orElseThrow();
             Server server = event.getServer().orElseThrow();
             boolean isUserAfk = cmd.isAfk(user);
+            String botID = "<@!920600262597566464>";
 
             try {
                 User mentionedUser = event.getMessage().getMentionedUsers().get(0);
@@ -48,23 +49,18 @@ public class index {
                 }
 
             }
+
             if (isUserAfk) {
                 event.getMessage().reply("How does it feel, tired? :yawning_face:");
                 cmd.updateAfk(user, server);
 
             }
 
-            String botID = "<@!920600262597566464>";
-            if(event.getMessageContent().contains(botID)) {
-            event.getChannel().sendMessage("No Way it worked");
-
-            /*
-            if (event.getMessageContent().contains("<@!920600262597566464>")) {
+            if (event.getMessageContent().contains(botID)) {
                 cmd.getPrefix(event);
             }
-            */
 
         });
-    }
 
+    }
 }

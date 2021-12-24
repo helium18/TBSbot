@@ -131,13 +131,12 @@ public class commands {
         return null;
     }
 
-/*
-   public void getPrefix(MessageCreateEvent event) {
+    public void getPrefix(MessageCreateEvent event) {
         utils util = new utils();
 
         String currentPrefix = util.getConfig().getProperty("PREFIX");
 
-        event.getMessage().reply(String.format("Call me by my prefix fuckturd: `%s`", currentPrefix));
+        event.getChannel().sendMessage(String.format("Call me by my prefix fuckturd: `%s`", currentPrefix));
     }
-*/
+
 }
